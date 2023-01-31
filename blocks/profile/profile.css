@@ -6,10 +6,14 @@
   max-width: 880px;
 }
 
+@media screen and (max-width: 900px) {
+  .profile {
+    max-width: 91.52%;
+  }
+}
 
 @media screen and (max-width: 768px) {
   .profile {
-    max-width: 91.52%;
     flex-direction: column;
     align-content: center;
   }
