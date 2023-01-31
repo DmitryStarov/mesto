@@ -1,0 +1,13 @@
+.cards__button-like {
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../image/button-like.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+  border: 1px solid white;
+  box-sizing: border-box;
+  align-self: flex-end;
+}

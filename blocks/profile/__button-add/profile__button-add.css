@@ -11,7 +11,7 @@
   border: 1px solid white;
   box-sizing: border-box;
   align-self: center;
-
+  padding: 0;
 
 }
 
@@ -20,8 +20,9 @@
   transition: 0.3s ease-in-out;
 }
 
-@media screen and (max-width: 1279px) {
+@media screen and (max-width: 900px) {
   .profile__button-add {
+    aspect-ratio: 3/1;
     margin-left: 20%;
   }
 }

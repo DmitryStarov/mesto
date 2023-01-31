@@ -10,12 +10,6 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 1279px) {
-  .profile__name {
-    font-size: calc(27px + 15 * (100vw - 320px) / 959);
-  }
-}
-
 @media screen and (max-width: 425px) {
   .profile__name {
     font-size: 27px;
