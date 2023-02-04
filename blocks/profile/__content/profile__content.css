@@ -1,8 +1,11 @@
 .profile__content{
   padding-left: 30px;
   display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
 }
 
 @media screen and (max-width: 425px) {

@@ -5,6 +5,7 @@ let userAbout = document.querySelector('.profile__about');
 let popupForm = document.querySelector('.popup__container');
 let popupInputName = popupForm.querySelector('.popup__input_type_name');
 let popupInputAbout = popupForm.querySelector('.popup__input_type_about');
+const popupCloseButton = document.querySelector(".popup__button-close");
 
 
 const handleOverlyClick = (event) => {

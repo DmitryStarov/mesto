@@ -1,7 +1,6 @@
 .profile__button-add{
   width: 150px;
   height: 50px;
-  margin-left: 244px;
   background-image: url(../../../image/profile_add-button.png);
   background-color: transparent;
   background-size: 22px 22px;
@@ -20,12 +19,7 @@
   transition: 0.3s ease-in-out;
 }
 
-@media screen and (max-width: 900px) {
-  .profile__button-add {
-    aspect-ratio: 3/1;
-    margin-left: 20%;
-  }
-}
+
 @media screen and (max-width: 768px) {
   .profile__button-add {
     margin: 0;
