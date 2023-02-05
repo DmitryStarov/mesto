@@ -1,17 +1,20 @@
-# Проект: Место
+# Место. Учебный проект Яндекс.Практикум курс "Web-разработчик".
+### Ссылка на сайт
+[https://dmitrystarov.github.io/mesto/](https://dmitrystarov.github.io/mesto/)
 
-### Обзор
+### Описание:
+"Mesto" - это интерактивная страница для размещения фотографий.
+[Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 
-* Figma
-* Картинки
-
-**Figma**
-
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
-
-**Картинки**
-
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+### Стек
+* Html;
+* Css
+* JavaScript
+### Технологии
+* Методология БЭМ;
+* Файловая структура по БЭМ Nested;
+* Flexbox;
+* Grid Layout;
+* Адаптивная верстка;
+* DOM
+* Git
