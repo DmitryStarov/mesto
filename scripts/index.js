@@ -7,7 +7,6 @@ let popupInputName = popupForm.querySelector('.popup__input_type_name');
 let popupInputAbout = popupForm.querySelector('.popup__input_type_about');
 const popupCloseButton = document.querySelector(".popup__button-close");
 
-
 const handleOverlyClick = (event) => {
   if (event.target === event.currentTarget) {
     toggleOpenPopup();
@@ -17,7 +16,6 @@ const handleOverlyClick = (event) => {
 const handleCloseButtonClick = () => {
   toggleOpenPopup();
 };
-
 
 const handleFormSubmit = (event) => {
   event.preventDefault();
@@ -32,8 +30,6 @@ const toggleOpenPopup = () =>{
   popup.classList.toggle("popup_opened");
   popup.addEventListener("click", handleOverlyClick);
 }
-
-
 
 editButton.addEventListener("click", toggleOpenPopup);
 popupForm.addEventListener("submit", handleFormSubmit);
