@@ -10,3 +10,10 @@
     width: 91.52%
   }
 }
+
+@media screen and (max-width: 768px) {
+  .header {
+    width: 100%
+  }
+}
+

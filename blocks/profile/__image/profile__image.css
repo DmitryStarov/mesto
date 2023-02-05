@@ -4,3 +4,9 @@
   object-fit: cover;
   align-self: center;
 }
+
+@media screen and (max-width: 768px) {
+  .profile__image{
+    margin-bottom: 26px;
+  }
+}

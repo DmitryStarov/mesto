@@ -9,7 +9,7 @@
   cursor: pointer;
   border: 1px solid white;
   box-sizing: border-box;
-  align-self: flex-end;
+  align-self: center;
 }
 
 .cards__button-like:hover{
