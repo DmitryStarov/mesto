@@ -7,11 +7,11 @@
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
-  border: 1px solid white;
+  border: 2px solid white;
   box-sizing: border-box;
   align-self: center;
   padding: 0;
-
+  border-radius: 2px;
 }
 
 .profile__button-add:hover{
@@ -23,5 +23,6 @@
   .profile__button-add {
     margin: 0;
     width: calc(100vw - 36px);
+    background-size: 16px 16px;
   }
 }

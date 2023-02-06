@@ -7,12 +7,12 @@
   background-position: center;
   background-size: cover;
   cursor: pointer;
-  border: 1px solid white;
+  border: none;
   box-sizing: border-box;
   align-self: center;
 }
 
 .cards__button-like:hover{
-  opacity: 0.6;
-  background-image: url(../../../image/button-like-hover.svg);
+  opacity: 0.5;
+  transition: 0.3s ease-in-out;
 }
