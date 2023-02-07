@@ -5,7 +5,7 @@ let userAbout = document.querySelector('.profile__about');
 let popupForm = document.querySelector('.popup__form');
 let popupInputName = popupForm.querySelector('.popup__input_type_name');
 let popupInputAbout = popupForm.querySelector('.popup__input_type_about');
-const popupCloseButton = document.querySelector(".popup__button-close");
+const popupCloseButton = document.querySelector('.popup__button-close');
 
 
 const openPopup = () => {
@@ -13,7 +13,7 @@ const openPopup = () => {
 }
 
 const closePopup = () => {
-  popup.classList.remove("popup_opened");
+  popup.classList.remove('popup_opened');
 }
 
 const openEditPopup = () =>{
@@ -30,6 +30,6 @@ const handleFormSubmit = (event) => {
 }
 
 
-editButton.addEventListener("click", openEditPopup);
-popupForm.addEventListener("submit", handleFormSubmit);
-popupCloseButton.addEventListener("click", closePopup);
+editButton.addEventListener('click', openEditPopup);
+popupForm.addEventListener('submit', handleFormSubmit);
+popupCloseButton.addEventListener('click', closePopup);
