@@ -45,6 +45,9 @@ const createCard = (item) => {
   cardElement.querySelector('.cards__button-like').addEventListener('click', (evt) => {
     evt.target.classList.toggle('cards__button-like_action');
   })
+  cardElement.querySelector('.cards__button-remove').addEventListener('click', (evt) => {
+    evt.target.closest('.cards__item').remove();
+  })
   console.log(cardElement);
   return cardElement;
 }
