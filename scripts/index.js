@@ -1,5 +1,7 @@
 const editButton = document.querySelector('.profile__button-edit');
-const popup = document.querySelector('.popup');
+const popupEdit = document.querySelector('.popup_type_edit-user');
+const addButton = document.querySelector('.profile__button-add');
+const popupAdd = document.querySelector('.popup_type_add-image');
 let userName = document.querySelector('.profile__name');
 let userAbout = document.querySelector('.profile__about');
 let popupForm = document.querySelector('.popup__form');
@@ -63,11 +65,11 @@ initialCards.forEach((item) => {
 })
 
 const openPopup = () => {
-  popup.classList.add('popup_opened');
+  popupEdit.classList.add('popup_opened');
 }
 
 const closePopup = () => {
-  popup.classList.remove('popup_opened');
+  popupEdit.classList.remove('popup_opened');
 }
 
 const openEditPopup = () =>{
