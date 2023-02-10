@@ -25,48 +25,7 @@
       </section>
       <section class="photo-grid">
         <ul class="cards">
-          <li class="cards__item">
-            <img src="./image/karachaevsk.jpg" alt="замок в горах" class="cards__image">
-            <div class="cards__description">
-              <h2 class="cards__title">Карачаевск</h2>
-              <button type="button" class="cards__button-like"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./image/elbrus.jpg" alt="гора эльбрус"  class="cards__image">
-            <div class="cards__description">
-              <h2 class="cards__title">Гора Эльбрус</h2>
-              <button type="button" class="cards__button-like"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./image/dombai.jpg" alt="домбай" class="cards__image">
-            <div class="cards__description">
-              <h2 class="cards__title">Домбай</h2>
-              <button type="button" class="cards__button-like"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./image/elbrus.jpg" alt="гора эльбрус"  class="cards__image">
-            <div class="cards__description">
-              <h2 class="cards__title">Гора Эльбрус</h2>
-              <button type="button" class="cards__button-like"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./image/dombai.jpg" alt="домбай" class="cards__image">
-            <div class="cards__description">
-              <h2 class="cards__title">Домбай</h2>
-              <button type="button" class="cards__button-like"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./image/karachaevsk.jpg" alt="замок в горах" class="cards__image">
-            <div class="cards__description">
-              <h2 class="cards__title">Карачаево-Черкессия</h2>
-              <button type="button" class="cards__button-like"></button>
-            </div>
-          </li>
+
         </ul>
       </section>
     </main>
@@ -84,6 +43,15 @@
         </form>
       </div>
     </div>
+  <template id="card-template">
+    <li class="cards__item">
+      <img class="cards__image">
+      <div class="cards__description">
+        <h2 class="cards__title"></h2>
+        <button type="button" class="cards__button-like"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
