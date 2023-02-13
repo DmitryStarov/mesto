@@ -41,11 +41,12 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-console.log(initialCards);
+
 const createCard = (item) => {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
-  cardElement.querySelector('.cards__title').textContent = item.name;
+  if (item.name != '') cardElement.querySelector('.cards__title').textContent = item.name;
+    else cardElement.querySelector('.cards__title').textContent = 'Без названия';
   cardElement.querySelector('.cards__image').src = item.link;
   cardElement.querySelector('.cards__image').alt = 'Изображение ' + item.name;
   cardElement.querySelector('.cards__button-like').addEventListener('click', (evt) => {
@@ -65,10 +66,6 @@ const renderCard = (item) => {
   const cardContainer = document.querySelector('.cards');
   cardContainer.prepend(newCard);
 }
-
-initialCards.forEach((item) => {
-  renderCard(item);
-})
 
 const openPopup = (item) => {
   item.classList.add('popup_opened');
@@ -105,6 +102,10 @@ const handleAddFormSubmit = (event) => {
   popupInputImageLink.value = ''
   popupInputImageName.value = '';
 }
+
+initialCards.forEach((item) => {
+  renderCard(item);
+})
 
 addButton.addEventListener('click', () => openPopup(popupAdd));
 editButton.addEventListener('click', openEditPopup);
