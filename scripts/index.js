@@ -97,7 +97,8 @@ const handleAddFormSubmit = (event) => {
     name: popupInputImageName.value,
     link: popupInputImageLink.value
   }
-  initialCards.push(imageItem); //из брифа неясно нужно ли добавлять новую картинку в массив. уточнить у наставника
+  //из брифа неясно нужно ли добавлять новую картинку в массив. уточнить у наставника
+  initialCards.push(imageItem);
   createCard(imageItem);
   renderCard(imageItem);
   closePopup(popupAdd);
