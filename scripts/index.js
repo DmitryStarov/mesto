@@ -7,7 +7,7 @@ let userAbout = document.querySelector('.profile__about');
 let popupForm = document.querySelector('.popup__form');
 let popupInputName = popupForm.querySelector('.popup__input_type_name');
 let popupInputAbout = popupForm.querySelector('.popup__input_type_about');
-const popupCloseButton = document.querySelector('.popup__button-close');
+const popupEditCloseButton = popupEdit.querySelector('.popup__button-close');
 
 
 
@@ -64,29 +64,29 @@ initialCards.forEach((item) => {
   renderCard(item);
 })
 
-const openPopup = () => {
-  popupEdit.classList.add('popup_opened');
+const openPopup = (item) => {
+  item.classList.add('popup_opened');
 }
 
-const closePopup = () => {
-  popupEdit.classList.remove('popup_opened');
+const closePopup = (item) => {
+  item.classList.remove('popup_opened');
 }
 
 const openEditPopup = () =>{
   popupInputName.value = userName.innerText;
   popupInputAbout.value = userAbout.innerText;
-  openPopup();
+  openPopup(popupEdit);
 }
 
 const handleFormSubmit = (event) => {
   event.preventDefault();
   userName.textContent = popupInputName.value;
   userAbout.textContent = popupInputAbout.value;
-  closePopup();
+  closePopup(popupEdit);
 }
 
 
 editButton.addEventListener('click', openEditPopup);
 popupForm.addEventListener('submit', handleFormSubmit);
-popupCloseButton.addEventListener('click', closePopup);
+popupEditCloseButton.addEventListener('click', () => closePopup(popupEdit));
 
