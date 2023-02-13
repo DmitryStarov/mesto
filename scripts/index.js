@@ -4,10 +4,14 @@ const addButton = document.querySelector('.profile__button-add');
 const popupAdd = document.querySelector('.popup_type_add-image');
 let userName = document.querySelector('.profile__name');
 let userAbout = document.querySelector('.profile__about');
-let popupForm = document.querySelector('.popup__form');
-let popupInputName = popupForm.querySelector('.popup__input_type_name');
-let popupInputAbout = popupForm.querySelector('.popup__input_type_about');
+let popupEditForm = popupEdit.querySelector('.popup__form');
+let popupInputName = popupEditForm.querySelector('.popup__input_type_name');
+let popupInputAbout = popupEditForm.querySelector('.popup__input_type_about');
+let popupAddForm = popupAdd.querySelector('.popup__form');
+let popupInputImageName = popupAddForm.querySelector('.popup__input_type_image-name');
+let popupInputImageLink = popupAddForm.querySelector('.popup__input_type_image-link');
 const popupEditCloseButton = popupEdit.querySelector('.popup__button-close');
+const popupAddCloseButton = popupAdd.querySelector('.popup__button-close')
 
 
 
@@ -37,20 +41,22 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
+console.log(initialCards);
 const createCard = (item) => {
   const cardTemplate = document.querySelector('#card-template').content;
-  console.log(cardTemplate);
   const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
   cardElement.querySelector('.cards__title').textContent = item.name;
   cardElement.querySelector('.cards__image').src = item.link;
+  cardElement.querySelector('.cards__image').alt = 'Изображение ' + item.name;
   cardElement.querySelector('.cards__button-like').addEventListener('click', (evt) => {
     evt.target.classList.toggle('cards__button-like_action');
   })
   cardElement.querySelector('.cards__button-remove').addEventListener('click', (evt) => {
     evt.target.closest('.cards__item').remove();
+    //из брифа неясно удалять ли элемент из массива при удалении карточки. уточнить у наставника
+    let indexElement = initialCards.indexOf(item);
+    initialCards.splice(indexElement, 1);
   })
-  console.log(cardElement);
   return cardElement;
 }
 
@@ -78,15 +84,30 @@ const openEditPopup = () =>{
   openPopup(popupEdit);
 }
 
-const handleFormSubmit = (event) => {
+const handleEditFormSubmit = (event) => {
   event.preventDefault();
   userName.textContent = popupInputName.value;
   userAbout.textContent = popupInputAbout.value;
   closePopup(popupEdit);
 }
 
+const handleAddFormSubmit = (event) => {
+  event.preventDefault();
+  let imageItem = {
+    name: popupInputImageName.value,
+    link: popupInputImageLink.value
+  }
+  initialCards.push(imageItem); //из брифа неясно нужно ли добавлять новую картинку в массив. уточнить у наставника
+  createCard(imageItem);
+  renderCard(imageItem);
+  closePopup(popupAdd);
+  popupInputImageLink.value = ''
+  popupInputImageName.value = '';
+}
 
+addButton.addEventListener('click', () => openPopup(popupAdd));
 editButton.addEventListener('click', openEditPopup);
-popupForm.addEventListener('submit', handleFormSubmit);
+popupEditForm.addEventListener('submit', handleEditFormSubmit);
+popupAddForm.addEventListener('submit', handleAddFormSubmit)
 popupEditCloseButton.addEventListener('click', () => closePopup(popupEdit));
-
+popupAddCloseButton.addEventListener('click', () => closePopup(popupAdd));

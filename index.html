@@ -46,7 +46,7 @@
       <div class="popup__container">
         <button type="button" class="popup__button-close"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form name="form-add-image" class="popup__form">
+        <form name="form-add-image" class="popup__form popup__form_type_add">
           <input type="text" name="image-name" placeholder="Название" class="popup__input popup__input_type_image-name">
           <input type="text" name="image-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_image-link">
           <button type="submit" class="popup__button-save">Создать</button>
@@ -55,7 +55,7 @@
     </div>
   <template id="card-template">
     <li class="cards__item">
-      <img class="cards__image">
+      <img alt="" class="cards__image">
       <button type="button" class="cards__button-remove"></button>
       <div class="cards__description">
         <h2 class="cards__title"></h2>
