@@ -2,6 +2,7 @@ const editButton = document.querySelector('.profile__button-edit');
 const popupEdit = document.querySelector('.popup_type_edit-user');
 const addButton = document.querySelector('.profile__button-add');
 const popupAdd = document.querySelector('.popup_type_add-image');
+const popupViewImage = document.querySelector('.popup_type_view-image');
 let userName = document.querySelector('.profile__name');
 let userAbout = document.querySelector('.profile__about');
 let popupEditForm = popupEdit.querySelector('.popup__form');
@@ -12,7 +13,7 @@ let popupInputImageName = popupAddForm.querySelector('.popup__input_type_image-n
 let popupInputImageLink = popupAddForm.querySelector('.popup__input_type_image-link');
 const popupEditCloseButton = popupEdit.querySelector('.popup__button-close');
 const popupAddCloseButton = popupAdd.querySelector('.popup__button-close')
-
+const popupViewCloseButton = popupViewImage.querySelector('.popup__button-close')
 
 
 const initialCards = [
@@ -53,12 +54,16 @@ const createCard = (item) => {
   })
   cardElement.querySelector('.cards__button-remove').addEventListener('click', (evt) => {
     evt.target.closest('.cards__item').remove();
-    initialCards.splice(initialCards.indexOf(item), 1);
+  })
+  cardElement.querySelector('.cards__image').addEventListener('click', (evt) => {
+    popupViewImage.querySelector('.popup__image').src = evt.target.src;
+    popupViewImage.querySelector('.popup__image-description').textContent = evt.target.alt;
+    openPopup(popupViewImage);
   })
   return cardElement;
 }
-//погугли как реализовать без дублирования кода
-const renderCards = (item) => {
+
+const renderInitialCards = (item) => {
   const newCard = createCard(item);
   const cardContainer = document.querySelector('.cards');
   cardContainer.append(newCard);
@@ -69,7 +74,7 @@ const renderNewCard = (item) => {
   const cardContainer = document.querySelector('.cards');
   cardContainer.prepend(newCard);
 }
-//----------------------------------------------
+
 const openPopup = (item) => {
   item.classList.add('popup_opened');
 }
@@ -97,8 +102,6 @@ const handleAddFormSubmit = (event) => {
     name: popupInputImageName.value,
     link: popupInputImageLink.value
   }
-
-  initialCards.unshift(imageItem);
   createCard(imageItem);
   renderNewCard(imageItem);
   closePopup(popupAdd);
@@ -108,7 +111,7 @@ const handleAddFormSubmit = (event) => {
 }
 
 initialCards.forEach((item) => {
-  renderCards(item);
+  renderInitialCards(item);
 })
 
 addButton.addEventListener('click', () => openPopup(popupAdd));
@@ -117,3 +120,4 @@ popupEditForm.addEventListener('submit', handleEditFormSubmit);
 popupAddForm.addEventListener('submit', handleAddFormSubmit)
 popupEditCloseButton.addEventListener('click', () => closePopup(popupEdit));
 popupAddCloseButton.addEventListener('click', () => closePopup(popupAdd));
+popupViewCloseButton .addEventListener('click', () => closePopup(popupViewImage));
