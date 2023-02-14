@@ -45,28 +45,31 @@ const initialCards = [
 const createCard = (item) => {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
-  if (item.name != '') cardElement.querySelector('.cards__title').textContent = item.name;
-    else cardElement.querySelector('.cards__title').textContent = 'Без названия';
+  cardElement.querySelector('.cards__title').textContent = item.name;
   cardElement.querySelector('.cards__image').src = item.link;
-  cardElement.querySelector('.cards__image').alt = 'Изображение ' + item.name;
+  cardElement.querySelector('.cards__image').alt = item.name;
   cardElement.querySelector('.cards__button-like').addEventListener('click', (evt) => {
     evt.target.classList.toggle('cards__button-like_action');
   })
   cardElement.querySelector('.cards__button-remove').addEventListener('click', (evt) => {
     evt.target.closest('.cards__item').remove();
-    //из брифа неясно удалять ли элемент из массива при удалении карточки. уточнить у наставника
-    let indexElement = initialCards.indexOf(item);
-    initialCards.splice(indexElement, 1);
+    initialCards.splice(initialCards.indexOf(item), 1);
   })
   return cardElement;
 }
+//погугли как реализовать без дублирования кода
+const renderCards = (item) => {
+  const newCard = createCard(item);
+  const cardContainer = document.querySelector('.cards');
+  cardContainer.append(newCard);
+}
 
-const renderCard = (item) => {
+const renderNewCard = (item) => {
   const newCard = createCard(item);
   const cardContainer = document.querySelector('.cards');
   cardContainer.prepend(newCard);
 }
-
+//----------------------------------------------
 const openPopup = (item) => {
   item.classList.add('popup_opened');
 }
@@ -94,17 +97,18 @@ const handleAddFormSubmit = (event) => {
     name: popupInputImageName.value,
     link: popupInputImageLink.value
   }
-  //из брифа неясно нужно ли добавлять новую картинку в массив. уточнить у наставника
-  initialCards.push(imageItem);
+
+  initialCards.unshift(imageItem);
   createCard(imageItem);
-  renderCard(imageItem);
+  renderNewCard(imageItem);
   closePopup(popupAdd);
-  popupInputImageLink.value = ''
+  popupInputImageLink.value = '';
   popupInputImageName.value = '';
+  console.log(initialCards);
 }
 
 initialCards.forEach((item) => {
-  renderCard(item);
+  renderCards(item);
 })
 
 addButton.addEventListener('click', () => openPopup(popupAdd));
