@@ -53,15 +53,12 @@ const createCard = (item) => {
   cardElementTitle.textContent = item.name;
   cardElementImage.src = item.link;
   cardElementImage.alt = item.name;
-
   cardElement.querySelector('.cards__button-like').addEventListener('click', (evt) => {
     evt.target.classList.toggle('cards__button-like_action');
   })
-
   cardElement.querySelector('.cards__button-remove').addEventListener('click', (evt) => {
     evt.target.closest('.cards__item').remove();
   })
-
   cardElementImage.addEventListener('click', (evt) => {
     popupViewImage.src = evt.target.src;
     popupViewImage.alt = evt.target.alt;
@@ -111,7 +108,9 @@ const handleAddFormSubmit = (evt) => {
   createCard(imageItem);
   renderNewCard(imageItem);
   closePopup(popupAdd);
+  console.log(imageItem);
   evt.target.reset();
+  console.log(imageItem);
 }
 
 initialCards.forEach(renderInitialCards);
@@ -119,7 +118,7 @@ initialCards.forEach(renderInitialCards);
 addButton.addEventListener('click', () => openPopup(popupAdd));
 editButton.addEventListener('click', openEditPopup);
 popupEditForm.addEventListener('submit', handleEditFormSubmit);
-
+popupAddForm.addEventListener('submit', handleAddFormSubmit);
 popupCloseButton.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
