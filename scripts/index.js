@@ -113,7 +113,6 @@ const handleAddFormSubmit = (evt) => {
 }
 
 initialCards.forEach(renderInitialCards);
-
 addButton.addEventListener('click', () => openPopup(popupAdd));
 editButton.addEventListener('click', openEditPopup);
 popupEditForm.addEventListener('submit', handleEditFormSubmit);
