@@ -14,7 +14,7 @@ const popupAddForm = document.forms['form-add-image'];
 const popupInputImageName = popupAddForm.querySelector('.popup__input_type_image-name');
 const popupInputImageLink = popupAddForm.querySelector('.popup__input_type_image-link');
 const cardContainer = document.querySelector('.cards');
-const popupCloseButton = document.querySelectorAll('.popup__button-close');
+const popupCloseButtons = document.querySelectorAll('.popup__button-close');
 
 
 
@@ -105,7 +105,6 @@ const handleAddFormSubmit = (evt) => {
     name: popupInputImageName.value,
     link: popupInputImageLink.value
   }
-  createCard(imageItem);
   renderNewCard(imageItem);
   closePopup(popupAdd);
   console.log(imageItem);
@@ -119,7 +118,7 @@ addButton.addEventListener('click', () => openPopup(popupAdd));
 editButton.addEventListener('click', openEditPopup);
 popupEditForm.addEventListener('submit', handleEditFormSubmit);
 popupAddForm.addEventListener('submit', handleAddFormSubmit);
-popupCloseButton.forEach((button) => {
+popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
