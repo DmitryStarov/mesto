@@ -36,8 +36,8 @@
         <button type="button" class="popup__button-close popup__button-close_type-edit"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form name="form-user-edit" class="popup__form">
-          <input type="text" name="user-name" placeholder="Имя пользователя" class="popup__input popup__input_type_name">
-          <input type="text" name="user-about" placeholder="О себе" class="popup__input popup__input_type_about">
+          <input type="text" name="user-name" placeholder="Имя пользователя" class="popup__input popup__input_type_name" minlength="2" maxlength="40" required>
+          <input type="text" name="user-about" placeholder="О себе" class="popup__input popup__input_type_about" minlength="2" maxlength="200" required>
           <button type="submit" class="popup__button-save">Сохранить</button>
         </form>
       </div>
@@ -47,8 +47,8 @@
         <button type="button" class="popup__button-close"></button>
         <h2 class="popup__title">Новое место</h2>
         <form name="form-add-image" class="popup__form">
-          <input type="text" name="image-name" placeholder="Название" class="popup__input popup__input_type_image-name">
-          <input type="text" name="image-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_image-link">
+          <input type="text" name="image-name" placeholder="Название" class="popup__input popup__input_type_image-name " minlength="2" maxlength="30" required>
+          <input type="url" name="image-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_image-link" required>
           <button type="submit" class="popup__button-save">Создать</button>
         </form>
       </div>
