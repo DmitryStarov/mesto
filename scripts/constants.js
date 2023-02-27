@@ -1,6 +1,7 @@
 const editButton = document.querySelector('.profile__button-edit');
 const popupEdit = document.querySelector('.popup_type_edit-user');
 const addButton = document.querySelector('.profile__button-add');
+const popups = document.querySelectorAll('.popup');
 const popupAdd = document.querySelector('.popup_type_add-image');
 const popupView = document.querySelector('.popup_type_view-image');
 const popupViewImage = popupView.querySelector('.popup__image');

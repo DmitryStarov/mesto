@@ -31,12 +31,22 @@ const renderNewCard = (item) => {
   cardContainer.prepend(newCard);
 }
 
+const handleEscDown = (evt) =>{
+  if (evt.key === 'Escape') {
+    const popupCurrent = document.querySelector('.popup_opened');
+    closePopup(popupCurrent);
+  ;}
+}
+
 const openPopup = (item) => {
   item.classList.add('popup_opened');
+  document.addEventListener('keydown', handleEscDown); //вешаем слушатель на попап при откытии
 }
+
 
 const closePopup = (item) => {
   item.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleEscDown); //удаляем слушатель при закрытии
 }
 
 const openEditPopup = () =>{
@@ -65,12 +75,19 @@ const handleAddFormSubmit = (evt) => {
   console.log(imageItem);
 }
 
+
 initialCards.forEach(renderInitialCards);
 addButton.addEventListener('click', () => openPopup(popupAdd));
 editButton.addEventListener('click', openEditPopup);
 popupEditForm.addEventListener('submit', handleEditFormSubmit);
 popupAddForm.addEventListener('submit', handleAddFormSubmit);
+
 popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {closePopup(popup)}
+  })
+})
