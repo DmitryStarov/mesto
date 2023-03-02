@@ -43,7 +43,6 @@ const openPopup = (item) => {
   document.addEventListener('keydown', handleEscDown); //вешаем слушатель на попап при откытии
 }
 
-
 const closePopup = (item) => {
   item.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleEscDown); //удаляем слушатель при закрытии
@@ -70,11 +69,8 @@ const handleAddFormSubmit = (evt) => {
   }
   renderNewCard(imageItem);
   closePopup(popupAdd);
-  console.log(imageItem);
   evt.target.reset();
-  console.log(imageItem);
 }
-
 
 initialCards.forEach(renderInitialCards);
 addButton.addEventListener('click', () => openPopup(popupAdd));

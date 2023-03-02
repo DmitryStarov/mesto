@@ -35,16 +35,18 @@
       <div class="popup__container">
         <button type="button" class="popup__button-close"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="form-user-edit" class="popup__form">
-            <div class="popup__input-container">
-              <input type="text" name="user-name" placeholder="Имя пользователя" class="popup__input popup__input_type_name" minlength="2" maxlength="40" required>
-              <span class="popup__error-message popup__error-message_type_user-name"></span>
-            </div>
-            <div class="popup__input-container">
-              <input type="text" name="user-about" placeholder="О себе" class="popup__input popup__input_type_about" minlength="2" maxlength="200" required>
-              <span class="popup__error-message popup__error-message_type_user-about"></span>
-            </div>
-          <button type="submit" class="popup__button-save">Сохранить</button>
+          <form name="form-user-edit" class="popup__form">
+            <fieldset class="popup__fieldset">
+              <label class="popup__field">
+                <input type="text" name="user-name" placeholder="Имя пользователя" class="popup__input popup__input_type_name" minlength="2" maxlength="40" required>
+                <span class="popup__error-message popup__error-message_type_user-name"></span>
+              </label>
+              <label class="popup__field">
+                <input type="text" name="user-about" placeholder="О себе" class="popup__input popup__input_type_about" minlength="2" maxlength="200" required>
+                <span class="popup__error-message popup__error-message_type_user-about"></span>
+              </label>
+            <button type="submit" class="popup__button-save">Сохранить</button>
+        </fieldset>
         </form>
       </div>
     </div>
@@ -53,15 +55,17 @@
         <button type="button" class="popup__button-close"></button>
         <h2 class="popup__title">Новое место</h2>
         <form name="form-add-image" class="popup__form">
-          <div class="popup__input-container">
-            <input type="text" name="image-name" placeholder="Название" class="popup__input popup__input_type_image-name" minlength="2" maxlength="30" required>
-            <span class="popup__error-message popup__error-message_type_image-name"></span>
-          </div>
-          <div class="popup__input-container">
-            <input type="url" name="image-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_image-link" required>
-            <span class="popup__error-message popup__error-message_type_image-link"></span>
-          </div>
-          <button type="submit" class="popup__button-save">Создать</button>
+          <fieldset class="popup__fieldset">
+            <label class="popup__field">
+              <input type="text" name="image-name" placeholder="Название" class="popup__input popup__input_type_image-name" minlength="2" maxlength="30" required>
+              <span class="popup__error-message popup__error-message_type_image-name"></span>
+            </label>
+            <label class="popup__field">
+              <input type="url" name="image-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_image-link" required>
+              <span class="popup__error-message popup__error-message_type_image-link"></span>
+            </label>
+            <button type="submit" class="popup__button-save">Создать</button>
+          </fieldset>
         </form>
       </div>
     </div>
