@@ -26,6 +26,7 @@ const setInputState = (inputList) => {
   });
 }
 
+
 const toggleButtonState = (inputList, buttonElement, disableButtonSave) => {
   if (setInputState(inputList)) {
     buttonElement.classList.add(disableButtonSave);
@@ -57,3 +58,15 @@ const resetValidation = (formElement, source) => {
     })
 }
 
+const enableValidation = (source) => {
+  const formList = Array.from(document.querySelectorAll(source.formSelector));
+    formList.forEach((formElement) => {
+    formElement.addEventListener('submit', function (evt) {
+     evt.preventDefault();
+    });
+   const fieldsetList = Array.from(formElement.querySelectorAll(source.inputSectionSelector));
+   fieldsetList.forEach((fieldSet) => {
+    setEventListeners(fieldSet, source);
+   });
+      });
+};

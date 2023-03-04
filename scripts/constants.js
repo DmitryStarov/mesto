@@ -17,17 +17,14 @@ const popupInputImageLink = popupAddForm.querySelector('.popup__input_type_image
 const cardContainer = document.querySelector('.cards');
 const popupCloseButtons = document.querySelectorAll('.popup__button-close');
 
-const enableValidation = (source) => {
-  const formList = Array.from(document.querySelectorAll(source.formSelector));
-    formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (evt) {
-     evt.preventDefault();
-    });
-   const fieldsetList = Array.from(formElement.querySelectorAll(source.inputSectionSelector));
-   fieldsetList.forEach((fieldSet) => {
-    setEventListeners(fieldSet, source);
-   });
-      });
+const validationSource = {
+  formSelector : '.popup__form',
+  inputSectionSelector: '.popup__fieldset',
+  inputSelector : '.popup__input',
+  buttonSaveSelector : '.popup__button-save',
+  disableButtonSave : 'popup__button-save_disable',
+  inputError: '.popup__input_error',
+  errorMessageSelector: 'popup__error-message_visible'
 };
 
 const initialCards = [
