@@ -51,6 +51,7 @@ const closePopup = (item) => {
 const openEditPopup = () =>{
   popupInputName.value = userName.innerText;
   popupInputAbout.value = userAbout.innerText;
+  resetValidation(popupEditForm, validationSource);
   openPopup(popupEdit);
 }
 
@@ -73,7 +74,13 @@ const handleAddFormSubmit = (evt) => {
 }
 
 initialCards.forEach(renderInitialCards);
-addButton.addEventListener('click', () => openPopup(popupAdd));
+
+addButton.addEventListener('click', () => {
+  resetValidation(popupAddForm, validationSource);
+  popupAddForm.reset();
+  openPopup(popupAdd);
+});
+
 editButton.addEventListener('click', openEditPopup);
 popupEditForm.addEventListener('submit', handleEditFormSubmit);
 popupAddForm.addEventListener('submit', handleAddFormSubmit);
@@ -82,8 +89,11 @@ popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
+
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target === evt.currentTarget) {closePopup(popup)}
   })
 })
+
+enableValidation(validationSource);

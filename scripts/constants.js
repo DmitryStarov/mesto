@@ -17,7 +17,18 @@ const popupInputImageLink = popupAddForm.querySelector('.popup__input_type_image
 const cardContainer = document.querySelector('.cards');
 const popupCloseButtons = document.querySelectorAll('.popup__button-close');
 
-
+const enableValidation = (source) => {
+  const formList = Array.from(document.querySelectorAll(source.formSelector));
+    formList.forEach((formElement) => {
+    formElement.addEventListener('submit', function (evt) {
+     evt.preventDefault();
+    });
+   const fieldsetList = Array.from(formElement.querySelectorAll(source.inputSectionSelector));
+   fieldsetList.forEach((fieldSet) => {
+    setEventListeners(fieldSet, source);
+   });
+      });
+};
 
 const initialCards = [
   {
