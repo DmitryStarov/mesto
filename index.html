@@ -38,11 +38,11 @@
           <form name="form-user-edit" class="popup__form">
             <fieldset class="popup__fieldset">
               <label class="popup__field">
-                <input type="text" name="name" id="name-input" placeholder="Имя пользователя" class="popup__input popup__input_type_name" minlength="2" maxlength="40" required>
+                <input type="text" name="name" id="name-input" placeholder="Имя пользователя" class="popup__input popup__input_type_name" minlength="2" maxlength="40" autocomplete="off" required>
                 <span class="popup__error-message name-input-error"></span>
               </label>
               <label class="popup__field">
-                <input type="text" name="about" id="about-input" placeholder="О себе" class="popup__input popup__input_type_about" minlength="2" maxlength="200" required>
+                <input type="text" name="about" id="about-input" placeholder="О себе" class="popup__input popup__input_type_about" minlength="2" maxlength="200" autocomplete="off" required>
                 <span class="popup__error-message popup__error-message_visible about-input-error"></span>
               </label>
             <button type="submit" class="popup__button-save">Сохранить</button>
@@ -57,7 +57,7 @@
         <form name="form-add-image" class="popup__form">
           <fieldset class="popup__fieldset">
             <label class="popup__field">
-              <input type="text" name="image" id="image-input" placeholder="Название" class="popup__input popup__input_type_image-name" minlength="2" maxlength="30" required>
+              <input type="text" name="image" id="image-input" placeholder="Название" class="popup__input popup__input_type_image-name" minlength="2" maxlength="30" autocomplete="off" required>
               <span class="popup__error-message popup__error-message_visible image-input-error"></span>
             </label>
             <label class="popup__field">

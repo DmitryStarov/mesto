@@ -1,3 +1,16 @@
+class Card {
+  //конструктор класса
+  constructor (cardObject, templateSelector) {
+    this._card = cardObject;
+    this._name = this._card.name;
+    this._link = this._card.link;
+    this._alt = this._card.name;
+    this._templateSelector = templateSelector;
+  }
+
+}
+
+
 const createCard = (item) => {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
