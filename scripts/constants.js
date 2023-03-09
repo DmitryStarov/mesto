@@ -15,7 +15,7 @@ const popupAddForm = document.forms['form-add-image'];
 const popupInputImageName = popupAddForm.querySelector('.popup__input_type_image-name');
 const popupInputImageLink = popupAddForm.querySelector('.popup__input_type_image-link');
 const cardContainer = document.querySelector('.cards');
-const popupCloseButtons = document.querySelectorAll('.popup__button-close');
+
 
 const validationSource = {
   formSelector : '.popup__form',
