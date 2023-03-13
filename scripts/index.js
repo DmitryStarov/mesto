@@ -1,46 +1,12 @@
-class Card {
-  //конструктор класса
-  constructor (cardObject, templateSelector) {
-    this._card = cardObject;
-    this._name = this._card.name;
-    this._link = this._card.link;
-    this._alt = this._card.name;
-    this._templateSelector = templateSelector;
-  }
-
-}
-
-
-const createCard = (item) => {
-  const cardTemplate = document.querySelector('#card-template').content;
-  const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
-  const cardElementImage = cardElement.querySelector('.cards__image');
-  const cardElementTitle = cardElement.querySelector('.cards__title');
-  cardElementTitle.textContent = item.name;
-  cardElementImage.src = item.link;
-  cardElementImage.alt = item.name;
-  cardElement.querySelector('.cards__button-like').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('cards__button-like_action');
-  })
-  cardElement.querySelector('.cards__button-remove').addEventListener('click', (evt) => {
-    evt.target.closest('.cards__item').remove();
-  })
-  cardElementImage.addEventListener('click', (evt) => {
-    popupViewImage.src = evt.target.src;
-    popupViewImage.alt = evt.target.alt;
-    popupViewImageTitle.textContent = evt.target.alt;
-    openPopup(popupView);
-  })
-  return cardElement;
-}
+import { Card } from './Card.js';
 
 const renderInitialCards = (item) => {
-  const newCard = createCard(item);
+  const newCard = item.generateCard();
   cardContainer.append(newCard);
 }
 
 const renderNewCard = (item) => {
-  const newCard = createCard(item);
+  const newCard = item.generateCard();
   cardContainer.prepend(newCard);
 }
 
@@ -51,7 +17,7 @@ const handleEscDown = (evt) =>{
   ;}
 }
 
-const openPopup = (item) => {
+export const openPopup = (item) => {
   item.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscDown); //вешаем слушатель на попап при откытии
 }
@@ -81,12 +47,16 @@ const handleAddFormSubmit = (evt) => {
     name: popupInputImageName.value,
     link: popupInputImageLink.value
   }
-  renderNewCard(imageItem);
+  const card = new Card(imageItem, cardTemplate)
+  renderNewCard(card);
   closePopup(popupAdd);
   evt.target.reset();
 }
 
-initialCards.forEach(renderInitialCards);
+initialCards.forEach( (item) => {
+  const card = new Card(item, cardTemplate);
+  renderInitialCards(card);
+});
 
 addButton.addEventListener('click', () => {
   resetValidation(popupAddForm, validationSource);

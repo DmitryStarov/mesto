@@ -40,7 +40,7 @@ const toggleButtonState = (inputList, buttonElement, disableButtonSave) => {
 const setEventListeners = (formElement, source) => {
   const inputList = Array.from(formElement.querySelectorAll(source.inputSelector));
   const buttonElement = formElement.querySelector(source.buttonSaveSelector);
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, source.disableButtonSave);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement, source);
