@@ -52,6 +52,7 @@ const closePopup = (item) => {
 
 const openEditPopup = () =>{
   const validator = new FormValidator(validationSource, popupEditForm);
+  validator.resetValidation();
   popupInputName.value = userName.innerText;
   popupInputAbout.value = userAbout.innerText;
   validator.enableValidation();
