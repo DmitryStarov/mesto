@@ -1,11 +1,12 @@
 import { openPopup } from "./index.js";
 class Card {
-  constructor (cardObject, templateSelector) {
+  constructor (cardObject, templateSelector, openViewPopup) {
     this._card = cardObject;
     this._name = this._card.name;
     this._link = this._card.link;
     this._alt = this._card.name;
     this._templateSelector = templateSelector;
+    this._openViewPopup = openViewPopup;
   }
 
   _getTemplate = () => {
@@ -19,11 +20,8 @@ class Card {
     this._element.querySelector('.cards__button-remove').addEventListener('click', (evt) => {
       evt.target.closest('.cards__item').remove();
     })
-    this._elementImage.addEventListener('click', (evt) => {
-      popupViewImage.src = evt.target.src;
-      popupViewImage.alt = evt.target.alt;
-      popupViewImageTitle.textContent = evt.target.alt;
-      openPopup(popupView);
+    this._elementImage.addEventListener('click', () => {
+      this._openViewPopup(this._elementImage);
     })
   }
 

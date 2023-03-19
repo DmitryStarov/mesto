@@ -58,6 +58,13 @@ const openEditPopup = () =>{
   openPopup(popupEdit);
 }
 
+const openViewPopup = (img) => {
+  popupViewImage.src = img.src;
+  popupViewImage.alt = img.alt;
+  popupViewImageTitle.textContent = img.alt;
+  openPopup(popupView);
+}
+
 const handleEditFormSubmit = (evt) => {
   evt.preventDefault();
   userName.textContent = popupInputName.value;
@@ -71,14 +78,14 @@ const handleAddFormSubmit = (evt) => {
     name: popupInputImageName.value,
     link: popupInputImageLink.value
   }
-  const card = new Card(imageItem, cardTemplate);
+  const card = new Card(imageItem, cardTemplate, openViewPopup);
   renderNewCard(card);
   closePopup(popupAdd);
   evt.target.reset();
 }
 
 initialCards.forEach( (item) => {
-  const card = new Card(item, cardTemplate);
+  const card = new Card(item, cardTemplate, openViewPopup);
   renderInitialCards(card);
 });
 
