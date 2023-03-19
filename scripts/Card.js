@@ -1,5 +1,5 @@
 import { openPopup } from "./index.js";
-export class Card {
+class Card {
   constructor (cardObject, templateSelector) {
     this._card = cardObject;
     this._name = this._card.name;
@@ -8,11 +8,11 @@ export class Card {
     this._templateSelector = templateSelector;
   }
 
-  _getTemplate () {
+  _getTemplate = () => {
     return this._templateSelector.querySelector('.cards__item').cloneNode(true);
   }
 
-  _setEventListeners() {
+  _setEventListeners = () => {
     this._element.querySelector('.cards__button-like').addEventListener('click', (evt) => {
       evt.target.classList.toggle('cards__button-like_action');
     })
@@ -23,12 +23,11 @@ export class Card {
       popupViewImage.src = evt.target.src;
       popupViewImage.alt = evt.target.alt;
       popupViewImageTitle.textContent = evt.target.alt;
-      openPopup(popupView); //без дублирования кода открываем модалку просмотра картинки с помощью импорта из index.js
-      //popupView.classList.add('popup_opened'); //или лучше так открывать модалку? (следи за тредом в пачке)
+      openPopup(popupView);
     })
   }
 
-  generateCard () {
+  generateCard = () => {
     this._element = this._getTemplate();
     this._elementImage = this._element.querySelector('.cards__image');
     this._elementTitle = this._element.querySelector('.cards__title');
@@ -40,3 +39,4 @@ export class Card {
   }
 }
 
+export {Card}

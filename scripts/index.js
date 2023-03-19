@@ -1,4 +1,5 @@
 import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 const renderInitialCards = (item) => {
   const newCard = item.generateCard();
@@ -28,9 +29,10 @@ const closePopup = (item) => {
 }
 
 const openEditPopup = () =>{
+  const validator = new FormValidator(validationSource, popupEditForm);
   popupInputName.value = userName.innerText;
   popupInputAbout.value = userAbout.innerText;
-  resetValidation(popupEditForm, validationSource);
+  validator.enableValidation();
   openPopup(popupEdit);
 }
 
@@ -47,7 +49,7 @@ const handleAddFormSubmit = (evt) => {
     name: popupInputImageName.value,
     link: popupInputImageLink.value
   }
-  const card = new Card(imageItem, cardTemplate)
+  const card = new Card(imageItem, cardTemplate);
   renderNewCard(card);
   closePopup(popupAdd);
   evt.target.reset();
@@ -59,8 +61,10 @@ initialCards.forEach( (item) => {
 });
 
 addButton.addEventListener('click', () => {
-  resetValidation(popupAddForm, validationSource);
+  const validator = new FormValidator(validationSource, popupAddForm);
+  validator.resetValidation();
   popupAddForm.reset();
+  validator.enableValidation();
   openPopup(popupAdd);
 });
 
@@ -79,4 +83,3 @@ popups.forEach((popup) => {
   })
 })
 
-enableValidation(validationSource);
