@@ -1,3 +1,25 @@
+import {
+    editButton,
+    popupEdit,
+    addButton,
+    popups,
+    popupAdd,
+    popupView,
+    popupViewImage,
+    popupViewImageTitle,
+    userName,
+    userAbout,
+    popupEditForm,
+    popupInputName,
+    popupInputAbout,
+    popupAddForm,
+    popupInputImageName,
+    popupInputImageLink,
+    cardContainer,
+    cardTemplate,
+    validationSource,
+    initialCards,
+} from './constants.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
