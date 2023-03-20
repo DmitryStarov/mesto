@@ -1,4 +1,3 @@
-import { openPopup } from "./index.js";
 class Card {
   constructor (cardObject, templateSelector, openViewPopup) {
     this._card = cardObject;

@@ -53,6 +53,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+const formValidators = {};
 
 export {
   editButton,
@@ -75,4 +76,5 @@ export {
   cardTemplate,
   validationSource,
   initialCards,
+  formValidators
 };

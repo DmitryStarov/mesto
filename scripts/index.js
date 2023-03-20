@@ -19,18 +19,22 @@ import {
     cardTemplate,
     validationSource,
     initialCards,
+    formValidators
 } from './constants.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
-const renderInitialCards = (item) => {
-  const newCard = item.generateCard();
-  cardContainer.append(newCard);
+const createCard = (data) => {
+  const card = new Card(data, cardTemplate, openViewPopup);
+  return card.generateCard();
 }
 
-const renderNewCard = (item) => {
-  const newCard = item.generateCard();
-  cardContainer.prepend(newCard);
+const renderInitialCards = (data) => {
+  cardContainer.append(data);
+}
+
+const renderNewCard = (data) => {
+  cardContainer.prepend(data);
 }
 
 const handleEscDown = (evt) =>{
@@ -40,7 +44,7 @@ const handleEscDown = (evt) =>{
   ;}
 }
 
-export const openPopup = (item) => {
+const openPopup = (item) => {
   item.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscDown); //вешаем слушатель на попап при откытии
 }
@@ -51,11 +55,9 @@ const closePopup = (item) => {
 }
 
 const openEditPopup = () =>{
-  const validator = new FormValidator(validationSource, popupEditForm);
-  validator.resetValidation();
   popupInputName.value = userName.innerText;
   popupInputAbout.value = userAbout.innerText;
-  validator.enableValidation();
+  formValidators['form-user-edit'].resetValidation();
   openPopup(popupEdit);
 }
 
@@ -79,22 +81,34 @@ const handleAddFormSubmit = (evt) => {
     name: popupInputImageName.value,
     link: popupInputImageLink.value
   }
-  const card = new Card(imageItem, cardTemplate, openViewPopup);
-  renderNewCard(card);
+  const newCard = createCard(imageItem);
+  renderNewCard(newCard);
   closePopup(popupAdd);
   evt.target.reset();
 }
 
-initialCards.forEach( (item) => {
-  const card = new Card(item, cardTemplate, openViewPopup);
-  renderInitialCards(card);
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+// вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+
+
+initialCards.forEach( (data) => {
+  const newCard = createCard(data);
+  renderInitialCards(newCard);
 });
 
 addButton.addEventListener('click', () => {
-  const validator = new FormValidator(validationSource, popupAddForm);
-  validator.resetValidation();
   popupAddForm.reset();
-  validator.enableValidation();
+  formValidators['form-add-image'].resetValidation();
   openPopup(popupAdd);
 });
 
@@ -112,4 +126,4 @@ popups.forEach((popup) => {
     }
   })
 })
-
+enableValidation(validationSource);
