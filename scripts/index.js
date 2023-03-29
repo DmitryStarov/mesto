@@ -128,6 +128,8 @@ popups.forEach((popup) => {
     }
   })
 })
+
+
 const cardList = new Section({items : initialCards, renderer : renderCard}, cardsContainerSelector);
 cardList.renderItems();
 
