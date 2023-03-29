@@ -15,7 +15,7 @@ import {
     popupAddForm,
     popupInputImageName,
     popupInputImageLink,
-    cardContainer,
+    cardsContainerSelector,
     cardTemplate,
     validationSource,
     initialCards,
@@ -23,19 +23,22 @@ import {
 } from './constants.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
+import Section from '../components/Section.js';
 
-const createCard = (data) => {
+
+const renderCard = (data) => {
   const card = new Card(data, cardTemplate, openViewPopup);
-  return card.generateCard();
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
 }
 
-const renderInitialCards = (data) => {
+/*const renderInitialCards = (data) => {
   cardContainer.append(data);
 }
 
 const renderNewCard = (data) => {
   cardContainer.prepend(data);
-}
+}*/
 
 const handleEscDown = (evt) =>{
   if (evt.key === 'Escape') {
@@ -81,8 +84,7 @@ const handleAddFormSubmit = (evt) => {
     name: popupInputImageName.value,
     link: popupInputImageLink.value
   }
-  const newCard = createCard(imageItem);
-  renderNewCard(newCard);
+  renderCard(imageItem);
   closePopup(popupAdd);
   evt.target.reset();
 }
@@ -96,15 +98,15 @@ const enableValidation = (config) => {
     const formName = formElement.getAttribute('name')
 // вот тут в объект записываем под именем формы
     formValidators[formName] = validator;
-   validator.enableValidation();
+    formValidators[formName].enableValidation();
   });
 };
 
 
-initialCards.forEach( (data) => {
+/*initialCards.forEach( (data) => {
   const newCard = createCard(data);
   renderInitialCards(newCard);
-});
+});*/
 
 addButton.addEventListener('click', () => {
   popupAddForm.reset();
@@ -126,4 +128,7 @@ popups.forEach((popup) => {
     }
   })
 })
+const cardList = new Section({items : initialCards, renderer : renderCard}, cardsContainerSelector);
+cardList.renderItems();
+
 enableValidation(validationSource);
