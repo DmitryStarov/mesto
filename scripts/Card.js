@@ -1,11 +1,11 @@
 class Card {
-  constructor (cardObject, templateSelector, openViewPopup) {
+  constructor (cardObject, templateSelector, handleCardClick) {
     this._card = cardObject;
     this._name = this._card.name;
     this._link = this._card.link;
     this._alt = this._card.name;
     this._templateSelector = templateSelector;
-    this._openViewPopup = openViewPopup;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate = () => {
@@ -20,7 +20,7 @@ class Card {
       evt.target.closest('.cards__item').remove();
     })
     this._elementImage.addEventListener('click', () => {
-      this._openViewPopup(this._elementImage);
+      this._handleCardClick(this._elementImage);
     })
   }
 

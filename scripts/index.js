@@ -5,6 +5,7 @@ import {
     popups,
     popupAdd,
     popupView,
+    popupViewSelector,
     popupViewImage,
     popupViewImageTitle,
     userName,
@@ -24,21 +25,14 @@ import {
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import Section from '../components/Section.js';
-
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 const renderCard = (data) => {
   const card = new Card(data, cardTemplate, openViewPopup);
   const cardElement = card.generateCard();
   cardList.addItem(cardElement);
 }
-
-/*const renderInitialCards = (data) => {
-  cardContainer.append(data);
-}
-
-const renderNewCard = (data) => {
-  cardContainer.prepend(data);
-}*/
 
 const handleEscDown = (evt) =>{
   if (evt.key === 'Escape') {
@@ -65,10 +59,7 @@ const openEditPopup = () =>{
 }
 
 const openViewPopup = (img) => {
-  popupViewImage.src = img.src;
-  popupViewImage.alt = img.alt;
-  popupViewImageTitle.textContent = img.alt;
-  openPopup(popupView);
+  popupWithImage.open(img);
 }
 
 const handleEditFormSubmit = (evt) => {
@@ -102,11 +93,8 @@ const enableValidation = (config) => {
   });
 };
 
-
-/*initialCards.forEach( (data) => {
-  const newCard = createCard(data);
-  renderInitialCards(newCard);
-});*/
+const popupWithImage = new PopupWithImage(popupViewSelector);
+popupWithImage.setEventListeners();
 
 addButton.addEventListener('click', () => {
   popupAddForm.reset();
