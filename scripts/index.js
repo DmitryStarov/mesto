@@ -1,6 +1,7 @@
 import {
     editButton,
-    popupEdit,
+    //popupEdit,
+    popupEditSelector,
     addButton,
     popups,
     popupAdd,
@@ -20,13 +21,17 @@ import {
     cardTemplate,
     validationSource,
     initialCards,
-    formValidators
+    formValidators,
+    userInfo
 } from './constants.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js';
+
+
 
 const renderCard = (data) => {
   const card = new Card(data, cardTemplate, openViewPopup);
@@ -52,22 +57,22 @@ const closePopup = (item) => {
 }
 
 const openEditPopup = () =>{
-  popupInputName.value = userName.innerText;
-  popupInputAbout.value = userAbout.innerText;
+  popupEditForm.name.value = user.getUserInfo().name;
+  popupEditForm.about.value = user.getUserInfo().about;
   formValidators['form-user-edit'].resetValidation();
-  openPopup(popupEdit);
+  popupUserForm.open();
+}
+
+const handleEditFormSubmit = (data) => {
+  user.setUserInfo(data);
+  popupUserForm.close();
 }
 
 const openViewPopup = (img) => {
   popupWithImage.open(img);
 }
 
-const handleEditFormSubmit = (evt) => {
-  evt.preventDefault();
-  userName.textContent = popupInputName.value;
-  userAbout.textContent = popupInputAbout.value;
-  closePopup(popupEdit);
-}
+
 
 const handleAddFormSubmit = (evt) => {
   evt.preventDefault();
@@ -92,9 +97,13 @@ const enableValidation = (config) => {
     formValidators[formName].enableValidation();
   });
 };
+const user = new UserInfo(userInfo);
 
 const popupWithImage = new PopupWithImage(popupViewSelector);
 popupWithImage.setEventListeners();
+
+const popupUserForm = new PopupWithForm (popupEditSelector, handleEditFormSubmit)
+popupUserForm.setEventListeners();
 
 addButton.addEventListener('click', () => {
   popupAddForm.reset();
@@ -103,20 +112,6 @@ addButton.addEventListener('click', () => {
 });
 
 editButton.addEventListener('click', openEditPopup);
-popupEditForm.addEventListener('submit', handleEditFormSubmit);
-popupAddForm.addEventListener('submit', handleAddFormSubmit);
-
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closePopup(popup);
-    }
-    if (evt.target.classList.contains('popup__button-close')) {
-      closePopup(popup)
-    }
-  })
-})
-
 
 const cardList = new Section({items : initialCards, renderer : renderCard}, cardsContainerSelector);
 cardList.renderItems();

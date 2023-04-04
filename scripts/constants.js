@@ -16,7 +16,13 @@ const popupInputImageName = popupAddForm.querySelector('.popup__input_type_image
 const popupInputImageLink = popupAddForm.querySelector('.popup__input_type_image-link');
 const cardsContainerSelector = '.cards';
 const popupViewSelector = '.popup_type_view-image';
+const popupEditSelector = '.popup_type_edit-user';
 const cardTemplate = document.querySelector('#card-template').content;
+
+const userInfo = {
+  userNameSelector : '.profile__name',
+  userDescriptionSelector : '.profile__about'
+};
 
 const validationSource = {
   formSelector : '.popup__form',
@@ -59,6 +65,7 @@ const formValidators = {};
 export {
   editButton,
   popupEdit,
+  popupEditSelector,
   addButton,
   popups,
   popupAdd,
@@ -78,5 +85,6 @@ export {
   cardTemplate,
   validationSource,
   initialCards,
-  formValidators
+  formValidators,
+  userInfo
 };
