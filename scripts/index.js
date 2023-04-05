@@ -1,22 +1,10 @@
 import {
     editButton,
-    //popupEdit,
     popupEditSelector,
     addButton,
-    popups,
-    popupAdd,
-    popupView,
+    popupAddSelector,
     popupViewSelector,
-    popupViewImage,
-    popupViewImageTitle,
-    userName,
-    userAbout,
     popupEditForm,
-    popupInputName,
-    popupInputAbout,
-    popupAddForm,
-    popupInputImageName,
-    popupInputImageLink,
     cardsContainerSelector,
     cardTemplate,
     validationSource,
@@ -39,23 +27,6 @@ const renderCard = (data) => {
   cardList.addItem(cardElement);
 }
 
-const handleEscDown = (evt) =>{
-  if (evt.key === 'Escape') {
-    const popupCurrent = document.querySelector('.popup_opened');
-    closePopup(popupCurrent);
-  ;}
-}
-
-const openPopup = (item) => {
-  item.classList.add('popup_opened');
-  document.addEventListener('keydown', handleEscDown); //вешаем слушатель на попап при откытии
-}
-
-const closePopup = (item) => {
-  item.classList.remove('popup_opened');
-  document.removeEventListener('keydown', handleEscDown); //удаляем слушатель при закрытии
-}
-
 const openEditPopup = () =>{
   popupEditForm.name.value = user.getUserInfo().name;
   popupEditForm.about.value = user.getUserInfo().about;
@@ -73,16 +44,9 @@ const openViewPopup = (img) => {
 }
 
 
-
-const handleAddFormSubmit = (evt) => {
-  evt.preventDefault();
-  const imageItem = {
-    name: popupInputImageName.value,
-    link: popupInputImageLink.value
-  }
-  renderCard(imageItem);
-  closePopup(popupAdd);
-  evt.target.reset();
+const handleAddFormSubmit = (data) => {
+  renderCard(data);
+  popupAddImageForm.close();
 }
 
 // Включение валидации
@@ -97,18 +61,22 @@ const enableValidation = (config) => {
     formValidators[formName].enableValidation();
   });
 };
+
+
 const user = new UserInfo(userInfo);
 
 const popupWithImage = new PopupWithImage(popupViewSelector);
 popupWithImage.setEventListeners();
 
-const popupUserForm = new PopupWithForm (popupEditSelector, handleEditFormSubmit)
+const popupUserForm = new PopupWithForm(popupEditSelector, handleEditFormSubmit)
 popupUserForm.setEventListeners();
 
+const popupAddImageForm = new PopupWithForm(popupAddSelector, handleAddFormSubmit)
+popupAddImageForm.setEventListeners();
+
 addButton.addEventListener('click', () => {
-  popupAddForm.reset();
   formValidators['form-add-image'].resetValidation();
-  openPopup(popupAdd);
+  popupAddImageForm.open();
 });
 
 editButton.addEventListener('click', openEditPopup);
