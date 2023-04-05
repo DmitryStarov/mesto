@@ -1,4 +1,4 @@
-class Card {
+export default class Card {
   constructor (cardObject, templateSelector, handleCardClick) {
     this._card = cardObject;
     this._name = this._card.name;
@@ -36,4 +36,3 @@ class Card {
   }
 }
 
-export {Card}

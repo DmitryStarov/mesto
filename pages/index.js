@@ -11,15 +11,14 @@ import {
     initialCards,
     formValidators,
     userInfo
-} from './constants.js';
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+} from '../utils/constants.js';
+
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
-
-
 
 const renderCard = (data) => {
   const card = new Card(data, cardTemplate, openViewPopup);
@@ -62,6 +61,8 @@ const enableValidation = (config) => {
   });
 };
 
+const cardList = new Section({items : initialCards, renderer : renderCard}, cardsContainerSelector);
+cardList.renderItems();
 
 const user = new UserInfo(userInfo);
 
@@ -74,14 +75,12 @@ popupUserForm.setEventListeners();
 const popupAddImageForm = new PopupWithForm(popupAddSelector, handleAddFormSubmit)
 popupAddImageForm.setEventListeners();
 
+
 addButton.addEventListener('click', () => {
   formValidators['form-add-image'].resetValidation();
   popupAddImageForm.open();
 });
 
 editButton.addEventListener('click', openEditPopup);
-
-const cardList = new Section({items : initialCards, renderer : renderCard}, cardsContainerSelector);
-cardList.renderItems();
 
 enableValidation(validationSource);
