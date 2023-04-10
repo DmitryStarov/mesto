@@ -32,9 +32,7 @@ const renderCard = (data) => {
 }
 
 const openEditPopup = () =>{
-  const { name, about} = user.getUserInfo();
-  popupEditForm.name.value = name;
-  popupEditForm.about.value = about;
+  popupUserForm.setInputValues(user.getUserInfo());
   formValidators['form-user-edit'].resetValidation();
   popupUserForm.open();
 }
