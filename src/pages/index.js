@@ -21,15 +21,20 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 
-const renderCard = (data) => {
+const createCard = (data) => {
   const card = new Card(data, cardTemplate, openViewPopup);
-  const cardElement = card.generateCard();
+  return card.generateCard();
+}
+
+const renderCard = (data) => {
+  const cardElement = createCard(data);
   cardList.addItem(cardElement);
 }
 
 const openEditPopup = () =>{
-  popupEditForm.name.value = user.getUserInfo().name;
-  popupEditForm.about.value = user.getUserInfo().about;
+  const { name, about} = user.getUserInfo();
+  popupEditForm.name.value = name;
+  popupEditForm.about.value = about;
   formValidators['form-user-edit'].resetValidation();
   popupUserForm.open();
 }
