@@ -1,11 +1,12 @@
 export default class Card {
-  constructor (cardObject, templateSelector, handleCardClick) {
+  constructor (cardObject, templateSelector, handleCardClick, handleCardDelete) {
     this._card = cardObject;
     this._name = this._card.name;
     this._link = this._card.link;
     this._alt = this._card.name;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleCardDelete = handleCardDelete;
   }
 
   _getTemplate = () => {
@@ -16,9 +17,7 @@ export default class Card {
     this._element.querySelector('.cards__button-like').addEventListener('click', (evt) => {
       evt.target.classList.toggle('cards__button-like_action');
     })
-    this._element.querySelector('.cards__button-remove').addEventListener('click', (evt) => {
-      evt.target.closest('.cards__item').remove();
-    })
+    this._element.querySelector('.cards__button-remove').addEventListener('click', (evt) => this._handleCardDelete())
     this._elementImage.addEventListener('click', () => {
       this._handleCardClick(this._elementImage);
     })

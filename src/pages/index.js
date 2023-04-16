@@ -5,7 +5,8 @@ import {
     addButton,
     popupAddSelector,
     popupViewSelector,
-    popupEditForm,
+    popupConfirmSelector,
+//    popupEditForm,
     cardsContainerSelector,
     cardTemplate,
     validationSource,
@@ -21,8 +22,10 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 
+
+
 const createCard = (data) => {
-  const card = new Card(data, cardTemplate, openViewPopup);
+  const card = new Card(data, cardTemplate, openViewPopup, handleCardDelete);
   return card.generateCard();
 }
 
@@ -51,7 +54,11 @@ const handleAddFormSubmit = (data) => {
   renderCard(data);
   popupAddImageForm.close();
 }
-
+const popupConfirm = new PopupWithForm(popupConfirmSelector, handleAddFormSubmit)
+popupConfirm.setEventListeners();
+const handleCardDelete = () => {
+  popupConfirm.open();
+}
 // Включение валидации
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector))
@@ -78,6 +85,7 @@ popupUserForm.setEventListeners();
 
 const popupAddImageForm = new PopupWithForm(popupAddSelector, handleAddFormSubmit)
 popupAddImageForm.setEventListeners();
+
 
 
 addButton.addEventListener('click', () => {
