@@ -10,7 +10,7 @@ import {
     cardsContainerSelector,
     cardTemplate,
     validationSource,
-    initialCards,
+    //initialCards,
     formValidators,
     userInfo
 } from '../utils/constants.js';
@@ -21,11 +21,35 @@ import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api';
 
+const api =  new Api ({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
+  headers: {
+    authorization: '539ef681-b6e6-46ab-9803-a552b23b4170',
+    'Content-Type': 'application/json'
+  }
+});
 
+let cardList;
+const cards = {};
+let userId;
+
+Promise.all([
+  api.getUserInfo(),
+  api.getInitialCards()
+])
+  .then(([userData, cards]) => {
+    console.log(cards);
+    userId = userData._id;
+    cardList = new Section({items : cards, renderer : renderCard}, cardsContainerSelector);
+    cardList.renderItems();
+
+  })
+  //.catch(error => console.log(`Ошибка: ${error}`));
 
 const createCard = (data) => {
-  const card = new Card(data, cardTemplate, openViewPopup, handleCardDelete);
+  const card = new Card(data, cardTemplate, openViewPopup, handleCardDelete, userId);
   return card.generateCard();
 }
 
@@ -72,8 +96,6 @@ const enableValidation = (config) => {
   });
 };
 
-const cardList = new Section({items : initialCards, renderer : renderCard}, cardsContainerSelector);
-cardList.renderItems();
 
 const user = new UserInfo(userInfo);
 
