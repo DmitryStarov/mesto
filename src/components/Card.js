@@ -1,5 +1,5 @@
 export default class Card {
-  constructor (cardObject, templateSelector, handleCardClick, handleCardDelete, userId) {
+  constructor (cardObject, templateSelector, userId, handleCardClick, handleCardDelete, handleLikeClick) {
     this._card = cardObject;
     this._name = this._card.name;
     this._link = this._card.link;
@@ -10,6 +10,7 @@ export default class Card {
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete;
+    this._handleLikeClick = handleLikeClick;
     this._userId = userId;
   }
 
@@ -35,7 +36,9 @@ export default class Card {
     this._elementTitle.textContent = this._name;
     this._elementImage.src = this._link;
     this._elementImage.alt = this._name;
-    console.log(this._ownerId === this._userId)
+    // console.log(this._ownerId === this._userId)
+    // console.log(this._ownerId)
+    // console.log(this._userId)
     if (this._ownerId === this._userId) {
       this._buttonDelete.classList.add('cards__button-remove_visible');
     }

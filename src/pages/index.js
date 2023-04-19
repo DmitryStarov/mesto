@@ -42,20 +42,24 @@ Promise.all([
   .then(([userData, cards]) => {
     console.log(cards);
     userId = userData._id;
-    cardList = new Section({items : cards, renderer : renderCard}, cardsContainerSelector);
-    cardList.renderItems();
-
+    renderInitialCards(cards)
   })
-  //.catch(error => console.log(`Ошибка: ${error}`));
+  // .catch(error => console.log(`Ошибка: ${error}`));
 
 const createCard = (data) => {
-  const card = new Card(data, cardTemplate, openViewPopup, handleCardDelete, userId);
+  const card = new Card(data, cardTemplate, userId, openViewPopup, handleCardDelete);
+  cards[data._id] = card;
   return card.generateCard();
 }
 
-const renderCard = (data) => {
+const renderCard = (data, isStart) => {
   const cardElement = createCard(data);
-  cardList.addItem(cardElement);
+  cardList.addItem(cardElement, isStart);
+}
+
+const renderInitialCards = (data) => {
+  cardList = new Section({items : data, renderer : renderCard}, cardsContainerSelector);
+  cardList.renderItems();
 }
 
 const openEditPopup = () =>{
@@ -75,12 +79,19 @@ const openViewPopup = (img) => {
 
 
 const handleAddFormSubmit = (data) => {
-  renderCard(data);
+  api.postCard(data)
+  .then ((res) => {
+  renderCard(res, true);
   popupAddImageForm.close();
+  })
+  .catch(error => console.log(`Ошибка: ${error}`));
 }
+
+
 const popupConfirm = new PopupWithForm(popupConfirmSelector, handleAddFormSubmit)
 popupConfirm.setEventListeners();
-const handleCardDelete = () => {
+
+const handleCardDelete = (cardId) => {
   popupConfirm.open();
 }
 // Включение валидации
