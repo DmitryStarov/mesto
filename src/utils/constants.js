@@ -5,6 +5,7 @@ const cardsContainerSelector = '.cards';
 const popupViewSelector = '.popup_type_view-image';
 const popupEditSelector = '.popup_type_edit-user';
 const popupAddSelector = '.popup_type_add-image';
+const popupConfirmSelector = '.popup_type_confirm';
 const cardTemplate = document.querySelector('#card-template').content;
 
 const userInfo = {
@@ -57,6 +58,7 @@ export {
   addButton,
   popupAddSelector,
   popupViewSelector,
+  popupConfirmSelector,
   popupEditForm,
   cardsContainerSelector,
   cardTemplate,

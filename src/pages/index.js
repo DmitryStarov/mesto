@@ -1,14 +1,16 @@
+import './index.css';
 import {
     editButton,
     popupEditSelector,
     addButton,
     popupAddSelector,
     popupViewSelector,
-    popupEditForm,
+    popupConfirmSelector,
+//    popupEditForm,
     cardsContainerSelector,
     cardTemplate,
     validationSource,
-    initialCards,
+    //initialCards,
     formValidators,
     userInfo
 } from '../utils/constants.js';
@@ -19,16 +21,49 @@ import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api';
 
-const renderCard = (data) => {
-  const card = new Card(data, cardTemplate, openViewPopup);
-  const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
+const api =  new Api ({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
+  headers: {
+    authorization: '539ef681-b6e6-46ab-9803-a552b23b4170',
+    'Content-Type': 'application/json'
+  }
+});
+
+let cardList;
+const cards = {};
+let userId;
+
+Promise.all([
+  api.getUserInfo(),
+  api.getInitialCards()
+])
+  .then(([userData, cards]) => {
+    console.log(cards);
+    userId = userData._id;
+    renderInitialCards(cards)
+  })
+  // .catch(error => console.log(`Ошибка: ${error}`));
+
+const createCard = (data) => {
+  const card = new Card(data, cardTemplate, userId, openViewPopup, handleCardDelete);
+  cards[data._id] = card;
+  return card.generateCard();
+}
+
+const renderCard = (data, isStart) => {
+  const cardElement = createCard(data);
+  cardList.addItem(cardElement, isStart);
+}
+
+const renderInitialCards = (data) => {
+  cardList = new Section({items : data, renderer : renderCard}, cardsContainerSelector);
+  cardList.renderItems();
 }
 
 const openEditPopup = () =>{
-  popupEditForm.name.value = user.getUserInfo().name;
-  popupEditForm.about.value = user.getUserInfo().about;
+  popupUserForm.setInputValues(user.getUserInfo());
   formValidators['form-user-edit'].resetValidation();
   popupUserForm.open();
 }
@@ -44,10 +79,21 @@ const openViewPopup = (img) => {
 
 
 const handleAddFormSubmit = (data) => {
-  renderCard(data);
+  api.postCard(data)
+  .then ((res) => {
+  renderCard(res, true);
   popupAddImageForm.close();
+  })
+  .catch(error => console.log(`Ошибка: ${error}`));
 }
 
+
+const popupConfirm = new PopupWithForm(popupConfirmSelector, handleAddFormSubmit)
+popupConfirm.setEventListeners();
+
+const handleCardDelete = (cardId) => {
+  popupConfirm.open();
+}
 // Включение валидации
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector))
@@ -61,8 +107,6 @@ const enableValidation = (config) => {
   });
 };
 
-const cardList = new Section({items : initialCards, renderer : renderCard}, cardsContainerSelector);
-cardList.renderItems();
 
 const user = new UserInfo(userInfo);
 
@@ -74,6 +118,7 @@ popupUserForm.setEventListeners();
 
 const popupAddImageForm = new PopupWithForm(popupAddSelector, handleAddFormSubmit)
 popupAddImageForm.setEventListeners();
+
 
 
 addButton.addEventListener('click', () => {
