@@ -69,7 +69,7 @@ export default class Api {
   //удаление карточки
   deleteCard(cardId) {
   return fetch(`${this._baseUrl}/cards/${cardId}`, {
-    method: 'DELTE',
+    method: 'DELETE',
     headers : this._headers
   })
   .then (this._checkResponse);

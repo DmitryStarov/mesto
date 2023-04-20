@@ -6,11 +6,9 @@ import {
     popupAddSelector,
     popupViewSelector,
     popupConfirmSelector,
-//    popupEditForm,
     cardsContainerSelector,
     cardTemplate,
     validationSource,
-    //initialCards,
     formValidators,
     userInfo
 } from '../utils/constants.js';
@@ -22,7 +20,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api';
-
+import PopupWithConfirmation from '../components/ PopupWithConfirmation';
 const api =  new Api ({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
   headers: {
@@ -44,7 +42,7 @@ Promise.all([
     userId = userData._id;
     renderInitialCards(cards)
   })
-  // .catch(error => console.log(`Ошибка: ${error}`));
+  .catch(error => console.log(`Ошибка: ${error}`));
 
 const createCard = (data) => {
   const card = new Card(data, cardTemplate, userId, openViewPopup, handleCardDelete);
@@ -88,12 +86,23 @@ const handleAddFormSubmit = (data) => {
 }
 
 
-const popupConfirm = new PopupWithForm(popupConfirmSelector, handleAddFormSubmit)
+const popupConfirm = new PopupWithConfirmation(popupConfirmSelector)
 popupConfirm.setEventListeners();
 
 const handleCardDelete = (cardId) => {
   popupConfirm.open();
+  popupConfirm.setConfirm(() => deleteCard(cardId))
+  console.log(cardId)
 }
+
+const deleteCard = (cardId) => {
+  api.deleteCard(cardId)
+  .then (() => {
+    cards[cardId].removeCard();
+    popupConfirm.close();
+  })
+}
+
 // Включение валидации
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector))

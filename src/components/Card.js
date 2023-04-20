@@ -22,10 +22,14 @@ export default class Card {
     this._element.querySelector('.cards__button-like').addEventListener('click', (evt) => {
       evt.target.classList.toggle('cards__button-like_action');
     })
-    this._element.querySelector('.cards__button-remove').addEventListener('click', (evt) => this._handleCardDelete())
+    this._element.querySelector('.cards__button-remove').addEventListener('click', (evt) => this._handleCardDelete(this._id))
     this._elementImage.addEventListener('click', () => {
       this._handleCardClick(this._elementImage);
     })
+  }
+
+  removeCard = () => {
+    this._element.remove();
   }
 
   generateCard = () => {
@@ -36,9 +40,6 @@ export default class Card {
     this._elementTitle.textContent = this._name;
     this._elementImage.src = this._link;
     this._elementImage.alt = this._name;
-    // console.log(this._ownerId === this._userId)
-    // console.log(this._ownerId)
-    // console.log(this._userId)
     if (this._ownerId === this._userId) {
       this._buttonDelete.classList.add('cards__button-remove_visible');
     }
