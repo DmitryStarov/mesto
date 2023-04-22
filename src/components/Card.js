@@ -61,6 +61,9 @@ export default class Card {
     if (this._ownerId === this._userId) {
       this._buttonDelete.classList.add('cards__button-remove_visible');
     }
+    if (this.isLiked()) {
+      this._buttonLike.classList.add('cards__button-like_action');
+    }
     this._setEventListeners()
     return this._element;
   }
