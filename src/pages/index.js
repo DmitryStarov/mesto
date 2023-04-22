@@ -45,7 +45,7 @@ Promise.all([
   .catch(error => console.log(`Ошибка: ${error}`));
 
 const createCard = (data) => {
-  const card = new Card(data, cardTemplate, userId, openViewPopup, handleCardDelete);
+  const card = new Card(data, cardTemplate, userId, openViewPopup, handleCardDelete, handleLikeClick);
   cards[data._id] = card;
   return card.generateCard();
 }
@@ -85,6 +85,25 @@ const handleAddFormSubmit = (data) => {
   .catch(error => console.log(`Ошибка: ${error}`));
 }
 
+const handleLikeClick = (cardId) => {
+  console.log(cards[cardId])
+  if(!cards[cardId].isLiked()) {
+    api.putLike(cardId)
+    .then((res => {
+      cards[cardId].updateLike(res)
+    })
+  )
+  .catch(error => console.log(`Ошибка: ${error}`));
+  }
+  else {
+    api.deleteLike(cardId)
+    .then((res => {
+      cards[cardId].updateLike(res)
+    })
+  )
+  .catch(error => console.log(`Ошибка: ${error}`));
+  }
+}
 
 const popupConfirm = new PopupWithConfirmation(popupConfirmSelector)
 popupConfirm.setEventListeners();
