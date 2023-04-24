@@ -5,12 +5,15 @@ const cardsContainerSelector = '.cards';
 const popupViewSelector = '.popup_type_view-image';
 const popupEditSelector = '.popup_type_edit-user';
 const popupAddSelector = '.popup_type_add-image';
+const popupEditAvatarSelector = '.popup_type_edit-avatar'
 const popupConfirmSelector = '.popup_type_confirm';
 const cardTemplate = document.querySelector('#card-template').content;
+const userAvatarEdit = document.querySelector('.profile__edit-image');
 
 const userInfo = {
   userNameSelector : '.profile__name',
-  userDescriptionSelector : '.profile__about'
+  userDescriptionSelector : '.profile__about',
+  userAvatarSelector: '.profile__image'
 };
 
 const validationSource = {
@@ -60,10 +63,12 @@ export {
   popupViewSelector,
   popupConfirmSelector,
   popupEditForm,
+  popupEditAvatarSelector,
   cardsContainerSelector,
   cardTemplate,
   validationSource,
   initialCards,
   formValidators,
-  userInfo
+  userInfo,
+  userAvatarEdit
 };

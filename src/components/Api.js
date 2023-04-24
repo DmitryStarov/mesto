@@ -15,7 +15,6 @@ export default class Api {
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
-
       headers : this._headers})
       .then (this._checkResponse);
   }
@@ -27,7 +26,7 @@ export default class Api {
       headers : this._headers,
       body: JSON.stringify({
         name: userData.name,
-        about: userData.about
+        about: userData.about,
       })
     })
     .then (this._checkResponse);

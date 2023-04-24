@@ -7,10 +7,12 @@ import {
     popupViewSelector,
     popupConfirmSelector,
     cardsContainerSelector,
+    popupEditAvatarSelector,
     cardTemplate,
     validationSource,
     formValidators,
-    userInfo
+    userInfo,
+    userAvatarEdit
 } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
@@ -40,9 +42,11 @@ Promise.all([
   .then(([userData, cards]) => {
     console.log(cards);
     userId = userData._id;
-    renderInitialCards(cards)
+    user.setUserInfo(userData)
+    user.setAvatar(userData);
+    renderInitialCards(cards);
   })
-  .catch(error => console.log(`Ошибка: ${error}`));
+   .catch(error => console.log(`Ошибка: ${error}`));
 
 const createCard = (data) => {
   const card = new Card(data, cardTemplate, userId, openViewPopup, handleCardDelete, handleLikeClick);
@@ -67,8 +71,12 @@ const openEditPopup = () =>{
 }
 
 const handleEditFormSubmit = (data) => {
-  user.setUserInfo(data);
-  popupUserForm.close();
+  api.patchProfile(data)
+  .then((res) => {
+    user.setUserInfo(data);
+    popupUserForm.close();
+  })
+  .catch(error => console.log(`Ошибка: ${error}`));
 }
 
 const openViewPopup = (img) => {
@@ -120,6 +128,16 @@ const deleteCard = (cardId) => {
     cards[cardId].removeCard();
     popupConfirm.close();
   })
+  .catch(error => console.log(`Ошибка: ${error}`));
+}
+
+const handleEditAvatar = (data) => {
+  api.patchAvatar(data)
+  .then((res) => {
+    user.setAvatar(res);
+    popupEditAvatar.close();
+  })
+  .catch(error => console.log(`Ошибка: ${error}`));
 }
 
 // Включение валидации
@@ -147,7 +165,12 @@ popupUserForm.setEventListeners();
 const popupAddImageForm = new PopupWithForm(popupAddSelector, handleAddFormSubmit)
 popupAddImageForm.setEventListeners();
 
+const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, handleEditAvatar)
+popupEditAvatar.setEventListeners();
 
+userAvatarEdit.addEventListener('click', () => {
+  popupEditAvatar.open();
+});
 
 addButton.addEventListener('click', () => {
   formValidators['form-add-image'].resetValidation();
