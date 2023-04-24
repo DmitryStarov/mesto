@@ -71,7 +71,7 @@ const openEditPopup = () =>{
 }
 
 const handleEditFormSubmit = (data) => {
-  api.patchProfile(data)
+  return api.patchProfile(data)
   .then((res) => {
     user.setUserInfo(data);
     popupUserForm.close();
@@ -83,9 +83,8 @@ const openViewPopup = (img) => {
   popupWithImage.open(img);
 }
 
-
 const handleAddFormSubmit = (data) => {
-  api.postCard(data)
+  return api.postCard(data)
   .then ((res) => {
   renderCard(res, true);
   popupAddImageForm.close();
@@ -123,7 +122,7 @@ const handleCardDelete = (cardId) => {
 }
 
 const deleteCard = (cardId) => {
-  api.deleteCard(cardId)
+  return api.deleteCard(cardId)
   .then (() => {
     cards[cardId].removeCard();
     popupConfirm.close();
@@ -132,7 +131,7 @@ const deleteCard = (cardId) => {
 }
 
 const handleEditAvatar = (data) => {
-  api.patchAvatar(data)
+  return api.patchAvatar(data)
   .then((res) => {
     user.setAvatar(res);
     popupEditAvatar.close();
@@ -169,6 +168,7 @@ const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, handleEditAva
 popupEditAvatar.setEventListeners();
 
 userAvatarEdit.addEventListener('click', () => {
+  formValidators['form-edit-avatar'].resetValidation();
   popupEditAvatar.open();
 });
 
