@@ -12,6 +12,7 @@ export default class Card {
     this._handleCardDelete = handleCardDelete;
     this._handleLikeClick = handleLikeClick;
     this._userId = userId;
+
   }
 
   _getTemplate = () => {
@@ -30,6 +31,7 @@ export default class Card {
 
   removeCard = () => {
     this._element.remove();
+    this._element = null;
   }
 
   isLiked = () => {

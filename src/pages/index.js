@@ -1,18 +1,19 @@
 import './index.css';
 import {
-    editButton,
-    popupEditSelector,
-    addButton,
-    popupAddSelector,
-    popupViewSelector,
-    popupConfirmSelector,
-    cardsContainerSelector,
-    popupEditAvatarSelector,
-    cardTemplate,
-    validationSource,
-    formValidators,
-    userInfo,
-    userAvatarEdit
+  editButton,
+  popupEditSelector,
+  addButton,
+  popupAddSelector,
+  popupViewSelector,
+  popupConfirmSelector,
+  popupEditForm,
+  popupEditAvatarSelector,
+  cardsContainerSelector,
+  cardTemplate,
+  validationSource,
+  formValidators,
+  userInfo,
+  userAvatarEdit
 } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
@@ -40,7 +41,6 @@ Promise.all([
   api.getInitialCards()
 ])
   .then(([userData, cards]) => {
-    console.log(cards);
     userId = userData._id;
     user.setUserInfo(userData)
     user.setAvatar(userData);
@@ -83,17 +83,22 @@ const openViewPopup = (img) => {
   popupWithImage.open(img);
 }
 
+const openAddImagePopup = () => {
+  formValidators['form-add-image'].resetValidation();
+  popupAddImageForm.open();
+}
+
 const handleAddFormSubmit = (data) => {
   return api.postCard(data)
   .then ((res) => {
+    console.log(res._id)
   renderCard(res, true);
-  popupAddImageForm.close();
+  console.log(cards)
   })
   .catch(error => console.log(`Ошибка: ${error}`));
 }
 
 const handleLikeClick = (cardId) => {
-  console.log(cards[cardId])
   if(!cards[cardId].isLiked()) {
     api.putLike(cardId)
     .then((res => {
@@ -112,20 +117,15 @@ const handleLikeClick = (cardId) => {
   }
 }
 
-const popupConfirm = new PopupWithConfirmation(popupConfirmSelector)
-popupConfirm.setEventListeners();
-
 const handleCardDelete = (cardId) => {
   popupConfirm.open();
   popupConfirm.setConfirm(() => deleteCard(cardId))
-  console.log(cardId)
 }
 
 const deleteCard = (cardId) => {
   return api.deleteCard(cardId)
   .then (() => {
-    cards[cardId].removeCard();
-    popupConfirm.close();
+  cards[cardId].removeCard();
   })
   .catch(error => console.log(`Ошибка: ${error}`));
 }
@@ -134,7 +134,6 @@ const handleEditAvatar = (data) => {
   return api.patchAvatar(data)
   .then((res) => {
     user.setAvatar(res);
-    popupEditAvatar.close();
   })
   .catch(error => console.log(`Ошибка: ${error}`));
 }
@@ -149,7 +148,7 @@ const enableValidation = (config) => {
 // вот тут в объект записываем под именем формы
     formValidators[formName] = validator;
     formValidators[formName].enableValidation();
-  });
+    });
 };
 
 
@@ -167,16 +166,17 @@ popupAddImageForm.setEventListeners();
 const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, handleEditAvatar)
 popupEditAvatar.setEventListeners();
 
+const popupConfirm = new PopupWithConfirmation(popupConfirmSelector)
+popupConfirm.setEventListeners();
+
 userAvatarEdit.addEventListener('click', () => {
   formValidators['form-edit-avatar'].resetValidation();
   popupEditAvatar.open();
 });
 
-addButton.addEventListener('click', () => {
-  formValidators['form-add-image'].resetValidation();
-  popupAddImageForm.open();
-});
+addButton.addEventListener('click', openAddImagePopup);
 
 editButton.addEventListener('click', openEditPopup);
 
 enableValidation(validationSource);
+
