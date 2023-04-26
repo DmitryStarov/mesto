@@ -74,7 +74,6 @@ const handleEditFormSubmit = (data) => {
   return api.patchProfile(data)
   .then((res) => {
     user.setUserInfo(data);
-    popupUserForm.close();
   })
   .catch(error => console.log(`Ошибка: ${error}`));
 }
